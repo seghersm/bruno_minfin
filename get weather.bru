@@ -19,6 +19,10 @@ vars:pre-request {
   city: Ghent
 }
 
+assert {
+  res.status: eq 200
+}
+
 script:post-response {
   console.log("looking up weather for: " + bru.getVar("city"));
   var result = res.getBody();
