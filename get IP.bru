@@ -1,0 +1,32 @@
+meta {
+  name: get IP
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://api.weatherapi.com/v1/ip.json?key={{api_key}}&q=208.127.61.61
+  body: none
+  auth: none
+}
+
+query {
+  key: {{api_key}}
+  q: 208.127.61.61
+}
+
+vars:pre-request {
+  city: Ghent
+}
+
+assert {
+  res.status: eq 200
+  res.body.country_name: eq Belgium
+}
+
+script:post-response {
+  console.log("City before:" +   bru.getVar("city"));
+  bru.setVar("city", res.body.city);
+  console.log("Performing IP lookup ...");
+  console.log("City after:" +  bru.getVar("city"));
+}

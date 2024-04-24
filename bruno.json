@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "minfin",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

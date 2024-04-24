@@ -1,0 +1,29 @@
+meta {
+  name: get weather
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://api.weatherapi.com/v1/current.json?key={{api_key}}&q={{city}}
+  body: none
+  auth: none
+}
+
+query {
+  key: {{api_key}}
+  q: {{city}}
+}
+
+vars:pre-request {
+  city: Ghent
+}
+
+script:post-response {
+  console.log("looking up weather for: " + bru.getVar("city"));
+  var result = res.getBody();
+  console.log("The weather in " 
+    + bru.getVar("city") + " is " 
+    + result.current.condition.text);
+  console.log("Temperature: " + result.current.temp_c + "°");
+}
